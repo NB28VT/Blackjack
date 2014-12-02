@@ -9,36 +9,9 @@
 
 require 'pry'
 
-
-
-binding.pry
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 class Deck
 
-  def initialize(card_array= [])
-    @card_array = card_array
+  def initialize
     generte_deck
   end
 
@@ -98,24 +71,30 @@ class Deck
       'K♦'=> 10,
       'K♣'=> 10
     }
-    
 
+    deck = []
 
-
-
-
-
-
-    cards = values.product(suits)
-
-    cards.each do |card|
-      card_array << card.join()
+    card_hash.each do |card, value|
+      deck << Card.new(card,value)
     end
 
+    binding.pry
 
 
 
-  end
+
+  #
+  #
+  #   cards = values.product(suits)
+  #
+  #   cards.each do |card|
+  #     card_array << card.join()
+  #   end
+  #
+  #
+  #
+  #
+  # end
 
 
 
@@ -129,7 +108,6 @@ class Card
     @name = name
     @value = value
   end
-
 end
 
 
@@ -142,3 +120,10 @@ class Hand
     @card2 = card2
   end
 end
+
+
+
+
+new_deck = Deck.new
+
+binding.pry
