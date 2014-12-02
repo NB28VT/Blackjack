@@ -17,11 +17,6 @@ class Deck
   end
 
   def generate_deck
-
-    # suits = [ '♠','♥', '♦', '♣' ]
-    # values = ['A', '2', '3', '4', '5', '6', '7', '8', '9', 'J', 'Q', 'K']
-    #
-
     card_hash = {
       'A♠' => 1,
       'A♥' => 1,
@@ -77,7 +72,6 @@ class Deck
       'K♣'=> 10
     }
 
-
     @deck = []
 
     card_hash.each do |card, value|
@@ -88,35 +82,18 @@ class Deck
 
     end
 
-
     @in_play = []
-
-  #
-  #
-  #   cards = values.product(suits)
-  #
-  #   cards.each do |card|
-  #     card_array << card.join()
-  #   end
-  #
-  #
-  #
-  #
-  # end
-
 end
 
 
 class Card
   attr_reader :name, :value
+
   def initialize(name, value)
     @name = name
     @value = value
   end
 end
-
-
-
 
 class Hand
   attr_reader :hand_array
@@ -140,18 +117,43 @@ class Hand
       total += card.value
     end
   end
+end
 
 
-  def add_card
 
-  end
+################################################ GAME METHODS #################
+
+
+
+
+def player_turn(new_deck)
+  player_hand = Hand.new(new_deck, "Me")
+  player_total = player_hand.card_total
+
 
 
 
 end
 
 
-# PLAY SCRIPT
+def dealer_turn
+  dealer_hand = Hand.new(new_deck, "Dealer")
+  dealer_total = dealer_hand.card_total
+
+end
+
+
+
+
+
+
+
+
+
+
+
+
+
 # !!!!!!!!!!!!!!!!!!!! ACES ARE 1 OR 11
 
 def play_game
@@ -161,8 +163,10 @@ def play_game
   puts "Welcome to Blackjack!\n\n"
   new_deck = Deck.new
 
-  player_hand = Hand.new(new_deck, "Me")
-  player_total = player_hand.card_total
+  while player_wins == false || computer_wins == false
+    player_turn(new_deck)
+    dealer_turn(new_deck)
+  end
 end
 
 
