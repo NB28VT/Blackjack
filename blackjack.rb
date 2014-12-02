@@ -119,17 +119,27 @@ end
 
 
 class Hand
-  def initialize(play_deck)
+  attr_reader :hand_array
+
+  def initialize(play_deck, player_name)
+    @player_name = player_name
+    @hand_array = []
     @play_deck = play_deck
-    draw_cards
+    2.times { draw_card(@player_name)}
   end
 
-  def draw_cards
-    @card_1 = @play_deck.deck.pop
-    @card_2 = @play_deck.deck.pop
-    puts "Your cards are #{@card_1.name} and #{@card_2.name}"
+  def draw_card(player_name)
+    @card = @play_deck.deck.pop
+    puts "#{player_name} was dealt #{@card.name}"
+    @hand_array << @card
   end
 
+  def card_total
+    total = 0
+    @hand_array.each do |card|
+      total += card.value
+    end
+  end
 
 
   def add_card
@@ -144,28 +154,37 @@ end
 # PLAY SCRIPT
 # !!!!!!!!!!!!!!!!!!!! ACES ARE 1 OR 11
 
+def play_game
+  player_wins = false
+  computer_wins = false
 
-player_wins = false
-computer_wins = false
+  puts "Welcome to Blackjack!\n\n"
+  new_deck = Deck.new
 
-puts "Welcome to Blackjack!\n\n"
-new_deck = Deck.new
-
-binding.pry
-
-until player_wins == true || computer_wins == true
-  player_hand = Hand.new(new_deck)
-
-  binding.pry
-
-  puts "Hit or stand (H/S):"
-
-
+  player_hand = Hand.new(new_deck, "Me")
+  player_total = player_hand.card_total
 end
 
 
-if player_wins == true
-  puts "Player wins!"
-elsif computer_wins == true
-  puts "Dealer wins!"
-end
+
+
+play_game
+
+
+
+# until player_wins == true || computer_wins == true
+#   player_hand = Hand.new(new_deck)
+#
+#   #binding.pry
+#
+#   puts "Hit or stand (H/S):"
+#
+#
+# end
+#
+#
+# if player_wins == true
+#   puts "Player wins!"
+# elsif computer_wins == true
+#   puts "Dealer wins!"
+# end
