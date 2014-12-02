@@ -10,9 +10,10 @@
 require 'pry'
 
 class Deck
+  attr_reader :deck, :in_play
 
   def initialize
-    generte_deck
+    generate_deck
   end
 
   def generate_deck
@@ -58,6 +59,10 @@ class Deck
       '9♥'=> 9,
       '9♦'=> 9,
       '9♣'=> 9,
+      '10♠'=> 10,
+      '10♥'=> 10,
+      '10♦'=> 10,
+      '10♣'=> 10,
       'J♠'=> 10,
       'J♥'=> 10,
       'J♦'=> 10,
@@ -72,16 +77,19 @@ class Deck
       'K♣'=> 10
     }
 
-    deck = []
+
+    @deck = []
 
     card_hash.each do |card, value|
       deck << Card.new(card,value)
     end
 
-    binding.pry
+    @deck.shuffle!
+
+    end
 
 
-
+    @in_play = []
 
   #
   #
@@ -96,14 +104,11 @@ class Deck
   #
   # end
 
-
-
-
-
 end
 
 
 class Card
+  attr_reader :name, :value
   def initialize(name, value)
     @name = name
     @value = value
@@ -114,16 +119,53 @@ end
 
 
 class Hand
-  def initialize(player ,card1, card2)
-    @player = player
-    @card1 = card1
-    @card2 = card2
+  def initialize(play_deck)
+    @play_deck = play_deck
+    draw_cards
   end
+
+  def draw_cards
+    @card_1 = @play_deck.deck.pop
+    @card_2 = @play_deck.deck.pop
+    puts "Your cards are #{@card_1.name} and #{@card_2.name}"
+  end
+
+
+
+  def add_card
+
+  end
+
+
+
 end
 
 
+# PLAY SCRIPT
+# !!!!!!!!!!!!!!!!!!!! ACES ARE 1 OR 11
 
 
+player_wins = false
+computer_wins = false
+
+puts "Welcome to Blackjack!\n\n"
 new_deck = Deck.new
 
 binding.pry
+
+until player_wins == true || computer_wins == true
+  player_hand = Hand.new(new_deck)
+
+  binding.pry
+
+  puts "Hit or stand (H/S):"
+
+
+end
+
+
+if player_wins == true
+  puts "Player wins!"
+elsif computer_wins == true
+  puts "Dealer wins!"
+end
