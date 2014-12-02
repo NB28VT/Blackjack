@@ -107,7 +107,7 @@ class Hand
 
   def draw_card(player_name)
     @card = @play_deck.deck.pop
-    puts "#{player_name} was dealt #{@card.name}"
+    puts "#{player_name} were dealt #{@card.name}"
     @hand_array << @card
   end
 
@@ -116,6 +116,7 @@ class Hand
     @hand_array.each do |card|
       total += card.value
     end
+    total
   end
 end
 
@@ -125,25 +126,48 @@ end
 
 
 
-
-def player_turn(new_deck)
-  player_hand = Hand.new(new_deck, "Me")
-  player_total = player_hand.card_total
-
-
-
-
-end
-
-
-def dealer_turn
-  dealer_hand = Hand.new(new_deck, "Dealer")
-  dealer_total = dealer_hand.card_total
-
-end
-
-
-
+#
+# def player_deal(new_deck)
+#   player_hand = Hand.new(new_deck, "Me")
+#   player_total = player_hand.card_total
+#
+#
+#
+#
+# end
+#
+#
+# def dealer_t
+#   dealer_total = dealer_hand.card_total
+#
+# end
+#
+#
+# def turn
+#   player_hit_or_stand
+#   # dealer_hit_or_stand
+# end
+#
+# def player_hit_or_stand
+#
+#   total = @player_hand.card_total
+#
+#
+#
+#
+#
+#
+#   # logic that decides if player hits or stands
+# end
+#
+# def dealer_hit_or_stand
+#   # logic decides if dealer hits or stands
+#   # if hand count > 17?
+#   #   stand
+#   # else
+#   #   dealer_turn
+#   # end
+# end
 
 
 
@@ -163,9 +187,58 @@ def play_game
   puts "Welcome to Blackjack!\n\n"
   new_deck = Deck.new
 
-  while player_wins == false || computer_wins == false
-    player_turn(new_deck)
-    dealer_turn(new_deck)
+  player_hand = Hand.new(new_deck, "You")
+  dealer_hand = Hand.new(new_deck, "Dealer")
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  until player_wins == true || computer_wins == true
+    player_total = player_hand.card_total
+
+
+
+
+    if player_total >= 22
+      computer_wins = true
+      puts "Bust: total is #{player_total}, house wins"
+    elsif player_total == 21
+      puts "You win"
+      player_wins = true
+    else
+      puts "Your card total is: #{player_total}"
+      puts "Hit or stand (H/S):"
+
+      player_choice = gets.chomp.downcase
+
+      if player_choice == "h"
+        player_hand.draw_card("You")
+      end
+    end
+
+
+
+
+
+
+
+
+
   end
 end
 
