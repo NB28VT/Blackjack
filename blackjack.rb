@@ -14,7 +14,11 @@ class Deck
     suits.each do |suit|
       cards.each_with_index do |card, index|
         current = card.to_s + suit
-        card_hash[current] = index + 1
+        if index <= 9
+          card_hash[current] = index + 1
+        else
+          card_hash[current] = 10
+        end
       end
     end
 
